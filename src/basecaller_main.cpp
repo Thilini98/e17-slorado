@@ -271,7 +271,9 @@ int basecaller_main(int argc, char* argv[]) {
         if(opt.debug_break==counter){
             break;
         }
-       counter++;
+        //fprintf(stderr, "[%.3f]  Counter : %d \n", realtime() - realtime_d, counter);
+        //fprintf(stderr, "[%.3f]  Counter : %d \n", realtime() - realtime_p, counter);
+        counter++;
     }
 
     //free the databatch
