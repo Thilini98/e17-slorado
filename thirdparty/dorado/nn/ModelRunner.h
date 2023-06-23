@@ -21,7 +21,7 @@ public:
 using Runner = std::shared_ptr<ModelRunnerBase>;
 
 template <typename T>
-class ModelRunner : public ModelRunnerBase {
+class ModelRunner : public ModelRunnerBase { //ModelRunner is a derived class from ModelRunnerBase
 public:
     ModelRunner(const std::string &model_path,
                 const std::string &device,
@@ -40,6 +40,7 @@ private:
     DecoderOptions m_decoder_options;
     torch::nn::ModuleHolder<torch::nn::AnyModule> m_module{nullptr};
     size_t m_model_stride;
+
 };
 
 template <typename T>
@@ -91,4 +92,3 @@ template<typename T> std::vector<DecodedChunk> ModelRunner<T>::call_chunks(int n
 template<typename T> void ModelRunner<T>::accept_chunk(int num_chunks, at::Tensor slice) {
     m_input.index_put_({num_chunks, 0}, slice);
 }
-

@@ -1,5 +1,4 @@
 #include "CPUDecoder.h"
-
 #include "beam_search.h"
 
 #include <math.h>
@@ -147,4 +146,6 @@ std::vector<DecodedChunk> CPUDecoder::beam_search(const torch::Tensor& scores,
                                                   const DecoderOptions& options,
                                                   std::string &device) {
     return beam_search_cpu(scores, num_chunks, options, device);
+
 }
+

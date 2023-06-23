@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Decoder.h"
 
 #include <torch/torch.h>
@@ -17,3 +16,4 @@ std::vector<DecodedChunk> beam_search_cpu(const torch::Tensor& scores,
                                           int num_chunks,
                                           const DecoderOptions& options,
                                           std::string &device);
+
