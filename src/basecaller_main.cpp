@@ -328,6 +328,10 @@ int basecaller_main(int argc, char* argv[]) {
                 fprintf(stderr, "\n[%s]                     - Forward in 2 time: %.3f sec",__func__, forward_2);
                 fprintf(stderr, "\n[%s]                     - Forward in 3 time: %.3f sec",__func__, forward_3);
 
+                fprintf(stderr, "\n\n[%s]                     - Beam search time: %.3f sec",__func__, beam_search);
+
+
+
             }
         
     }       

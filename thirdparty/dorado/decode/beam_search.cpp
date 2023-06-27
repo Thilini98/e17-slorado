@@ -122,6 +122,8 @@ float beam_search(const T* const scores,
                   std::vector<float>& qual_data,
                   float temperature,
                   float score_scale) {
+
+    startTime = realtime();
     if (max_beam_width > 256) {
         throw std::range_error("Beamsearch max_beam_width cannot be greater than 256.");
     }
@@ -458,7 +460,8 @@ float beam_search(const T* const scores,
                     (int(base) == base_to_emit ? block_prob : wrong_base_prob);
         }
     }
-
+    endTime = realtime();
+    beam_search += getTimeDifference();
     return final_score;
 }
 

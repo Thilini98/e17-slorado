@@ -48,7 +48,7 @@ extern double forward_1;
 extern double forward_2;
 extern double forward_3;
 
-
+extern double beam_search;
 // Function to measure time difference
 double getTimeDifference();
 

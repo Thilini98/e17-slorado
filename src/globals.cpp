@@ -44,6 +44,8 @@ double forward_1;
 double forward_2;
 double forward_3;
 
+extern double beam_search;
+
 // Function to measure time difference in seconds
 double getTimeDifference() {
     return endTime - startTime;
