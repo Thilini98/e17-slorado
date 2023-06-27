@@ -12,7 +12,7 @@
 #include <torch/torch.h>
 
 #include <cstdio>
-#include <cstring>
+
 
 
 using namespace std::chrono_literals;
@@ -26,7 +26,7 @@ public:
         isCUDA = true;
         startTime = realtime();
 
-        fprintf(stderr, "\n[ CudaCaller]");
+        fprintf(stderr, "\n[%s]", __func__);
 
         const auto model_config = load_crf_model_config(model_path);
         
@@ -48,7 +48,7 @@ public:
 
     ~CudaCaller() {
         startTime = realtime();
-        fprintf(stderr, "\n[ ~CudaCaller]");
+        fprintf(stderr, "\n[%s]", __func__);
         std::unique_lock<std::mutex> input_lock(m_input_lock);
         m_terminate = true;
         input_lock.unlock();
@@ -60,7 +60,7 @@ public:
 
     struct NNTask {
         startTime = realtime();
-        fprintf(stderr, "\n[ NNTask]");
+        fprintf(stderr, "\n[%s]", __func__);
         NNTask(torch::Tensor input_, int num_chunks_) : input(input_), num_chunks(num_chunks_) {}
         torch::Tensor input;
         std::mutex mut;
@@ -77,7 +77,7 @@ public:
                                           int num_chunks,
                                           c10::cuda::CUDAStream stream) {
         startTime = realtime();
-        fprintf(stderr, "\n[ callchunks]");
+        fprintf(stderr, "\n[%s]", __func__);
         c10::cuda::CUDAStreamGuard stream_guard(stream);
 
         if (num_chunks == 0) {
@@ -136,7 +136,7 @@ public:
     }
 
     startTime = realtime();
-    fprintf(stderr, "\n[ SubCudaCaller]");
+    fprintf(stderr, "\n[%s]", __func__);
     std::string m_device;
     torch::TensorOptions m_options;
     std::unique_ptr<GPUDecoder> m_decoder;
