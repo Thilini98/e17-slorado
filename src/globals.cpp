@@ -44,11 +44,11 @@ double forward_1;
 double forward_2;
 double forward_3;
 
-double 1t;
-double 2t;
-double 3t;
-double 4t;
-double 5t;
+double p1t;
+double p2t;
+double p3t;
+double p4t;
+double p5t;
 
 // Function to measure time difference in seconds
 double getTimeDifference() {
