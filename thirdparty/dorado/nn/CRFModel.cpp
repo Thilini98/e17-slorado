@@ -262,8 +262,6 @@ struct CudaLSTMStackImpl : Module {
 
     torch::Tensor forward_cublas(torch::Tensor in) {
         startTime = realtime();
-        std::cout << "Executing forward_cublas..." << std::endl;
-    
         ///////////////////////////////
 
         // input in is ([N, T, C], contiguity optional) or ([T+1, N, 2, C], contiguous) (see below)
@@ -332,13 +330,13 @@ struct CudaLSTMStackImpl : Module {
             }
         }
 
+        //////////////////////////////
+        endTime = realtime();
+        forward_1 += getTimeDifference();
+
         // Output is [N, T, C], non-contiguous
         return working_mem_left.transpose(1, 0);
 
-        //////////////////////////////
-        endTime = realtime();
-        
-       // forward_1 += getTimeDifference();
     }
 
     void rearrange_individual_weights(torch::Tensor buffer) {
@@ -374,8 +372,6 @@ struct CudaLSTMStackImpl : Module {
     std::pair<torch::Tensor, torch::Tensor> quantize_tensor(torch::Tensor tensor,
                                                             int levels = 256) {
                                                                 //////////////////////////////
-        startTime = realtime();
-        ////////////////////////////////
         //Quantize a tensor to int8, returning per-channel scales and the quantized tensor
         //if weights have not been quantized we get some scaling
         tensor = tensor.transpose(0, 1).contiguous();
@@ -400,10 +396,7 @@ struct CudaLSTMStackImpl : Module {
 
         return std::pair<torch::Tensor, torch::Tensor>(quantization_scale.to(torch::kFloat32),
                                                        tensor_quantized);
-        //////////////////////////////
-        endTime = realtime();
         
-        forward_2 += getTimeDifference();
     }
 
     void quantize_weights() {
@@ -467,12 +460,12 @@ struct CudaLSTMStackImpl : Module {
                 rnn5->named_parameters()["bias_ih"].data_ptr(),
                 _quantization_scale_factors[4].data_ptr(), x.data_ptr(), _chunks.size(0));
 
-        // Output is [N, T, C], contiguous
-        return x;
-        //////////////////////////////
         endTime = realtime();
         
-        forward_3 += getTimeDifference();
+        forward_2 += getTimeDifference();
+        // Output is [N, T, C], contiguous
+        return x;
+        
     }
 
     // Dispatch to different forward method depending on whether we use quantized LSTMs or not
@@ -480,20 +473,17 @@ struct CudaLSTMStackImpl : Module {
         startTime = realtime();
         // Input x is [N, T, C], contiguity optional
         
-        //           time_forward += getTimeDifference();
-        //           forward_l469 += getTimeDifference();
+        time_forward += getTimeDifference();
+        forward_l469 += getTimeDifference();
         if (m_quantize) {
-            //      endTime = realtime();
+            endTime = realtime();
             // Output is [N, T, C], contiguous
             return forward_quantized(x);
         } else {
-            //      endTime = realtime();
+            endTime = realtime();
             // Output is [N, T, C], non-contiguous
             return forward_cublas(x);
         }
-        endTime = realtime();
-        time_forward += getTimeDifference();
-        forward_l469 += getTimeDifference();
 
     }
 
