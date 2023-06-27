@@ -317,13 +317,14 @@ int basecaller_main(int argc, char* argv[]) {
                 fprintf(stderr, "\n[%s]                 - cuda_thread_fn time: %.3f sec",__func__, cuda_thread_fnT);
                 //fprintf(stderr, "\n[%s]                 - SubCudaCallerT time: %.3f sec",__func__, SubCudaCallerT);
 
-                fprintf(stderr, "\n\n[%s]                     - Forward in CudaLSTMStackImpl time: %.3f sec",__func__, forward_l469);
-
-                fprintf(stderr, "\n[%s]                         - rnn1 time: %.3f sec",__func__, rnn1t);
-                
                 fprintf(stderr, "\n\n[%s]                    - Forward in 1 time: %.3f sec",__func__, forward_1);
                 fprintf(stderr, "\n[%s]                     - Forward in 2 time: %.3f sec",__func__, forward_2);
-                fprintf(stderr, "\n[%s]                     - Forward in 3 time: %.3f sec",__func__, forward_3);
+
+                fprintf(stderr, "\n\n[%s]                         - for loop rnn time: %.3f sec",__func__, p1t);
+                //fprintf(stderr, "\n[%s]                         - rnn2 time: %.3f sec",__func__, p2t);
+                //fprintf(stderr, "\n[%s]                         - rnn3 time: %.3f sec",__func__, p3t);
+                //fprintf(stderr, "\n[%s]                         - rnn4 time: %.3f sec",__func__, p4t);
+                //fprintf(stderr, "\n[%s]                         - rnn5 time: %.3f sec",__func__, p5t);
 
             }
         

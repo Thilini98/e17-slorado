@@ -48,6 +48,11 @@ extern double forward_1;
 extern double forward_2;
 extern double forward_3;
 
+extern double p1t;
+extern double p2t;
+extern double p3t;
+extern double p4t;
+extern double p5t;
 
 // Function to measure time difference
 double getTimeDifference();

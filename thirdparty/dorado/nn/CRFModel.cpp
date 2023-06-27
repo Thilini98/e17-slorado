@@ -330,7 +330,7 @@ struct CudaLSTMStackImpl : Module {
                                    timestep_out.data_ptr());
             }
             subEndTimev2 = realtime();
-            rnn1ty1 += getSubTimeDifferencev2();
+            p1t += getSubTimeDifferencev2();
         }
 
         //////////////////////////////
