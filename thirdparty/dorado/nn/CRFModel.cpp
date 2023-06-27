@@ -455,21 +455,26 @@ struct CudaLSTMStackImpl : Module {
         startTime = realtime();
         // Input x is [N, T, C], contiguity optional
         
-        time_forward += getTimeDifference();
-        forward_l469 += getTimeDifference();
+        //           time_forward += getTimeDifference();
+        //           forward_l469 += getTimeDifference();
         if (m_quantize) {
-            endTime = realtime();
+            //      endTime = realtime();
             // Output is [N, T, C], contiguous
             return forward_quantized(x);
         } else {
-            endTime = realtime();
+            //      endTime = realtime();
             // Output is [N, T, C], non-contiguous
             return forward_cublas(x);
         }
+        endTime = realtime();
+        time_forward += getTimeDifference();
+        forward_l469 += getTimeDifference();
+
     }
 
     int layer_size;
     CudaLSTM rnn1{nullptr}, rnn2{nullptr}, rnn3{nullptr}, rnn4{nullptr}, rnn5{nullptr};
+
 };
 
 TORCH_MODULE(CudaLSTMStack);
