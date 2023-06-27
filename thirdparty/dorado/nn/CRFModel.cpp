@@ -2,6 +2,7 @@
 #include <string>
 #include <torch/torch.h>
 
+#include <iostream>
 
 #include "../../../src/globals.h"
 #include "../../../src/misc.h"
@@ -261,6 +262,8 @@ struct CudaLSTMStackImpl : Module {
 
     torch::Tensor forward_cublas(torch::Tensor in) {
         startTime = realtime();
+        std::cout << "Executing forward_cublas..." << std::endl;
+    
         ///////////////////////////////
 
         // input in is ([N, T, C], contiguity optional) or ([T+1, N, 2, C], contiguous) (see below)
@@ -335,7 +338,7 @@ struct CudaLSTMStackImpl : Module {
         //////////////////////////////
         endTime = realtime();
         
-        forward_1 += getTimeDifference();
+       // forward_1 += getTimeDifference();
     }
 
     void rearrange_individual_weights(torch::Tensor buffer) {
