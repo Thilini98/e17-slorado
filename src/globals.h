@@ -44,7 +44,9 @@ extern double call_chunksT;
 extern double cuda_thread_fnT;
 extern double SubCudaCallerT;
 
-
+extern double forward_1;
+extern double forward_2;
+extern double forward_3;
 
 
 // Function to measure time difference
