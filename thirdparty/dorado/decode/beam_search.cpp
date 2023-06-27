@@ -1,4 +1,5 @@
 #include "beam_search.h"
+#include "../../../src/globals.h"
 
 #include "fast_hash.h"
 
