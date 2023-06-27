@@ -470,17 +470,17 @@ struct CudaLSTMStackImpl : Module {
 
     // Dispatch to different forward method depending on whether we use quantized LSTMs or not
     torch::Tensor forward(torch::Tensor x) {
-        startTime = realtime();
+        //startTime = realtime();
         // Input x is [N, T, C], contiguity optional
         
-        time_forward += getTimeDifference();
-        forward_l469 += getTimeDifference();
+        //time_forward += getTimeDifference();
+        //forward_l469 += getTimeDifference();
         if (m_quantize) {
-            endTime = realtime();
+            //endTime = realtime();
             // Output is [N, T, C], contiguous
             return forward_quantized(x);
         } else {
-            endTime = realtime();
+            //endTime = realtime();
             // Output is [N, T, C], non-contiguous
             return forward_cublas(x);
         }
