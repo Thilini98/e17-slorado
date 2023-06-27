@@ -323,6 +323,10 @@ int basecaller_main(int argc, char* argv[]) {
                 fprintf(stderr, "\n[%s]                     - Forward in LSTMStackImpl time: %.3f sec",__func__, forward_l536);
                 fprintf(stderr, "\n[%s]                     - Forward in ClampImpl time: %.3f sec",__func__, forward_l577);
                 fprintf(stderr, "\n[%s]                     - Forward in CRFModelImpl time: %.3f sec",__func__, forward_l642);
+                
+                fprintf(stderr, "\n\n[%s]                    - Forward in 1 time: %.3f sec",__func__, forward_1);
+                fprintf(stderr, "\n[%s]                     - Forward in 2 time: %.3f sec",__func__, forward_2);
+                fprintf(stderr, "\n[%s]                     - Forward in 3 time: %.3f sec",__func__, forward_3);
 
             }
         
