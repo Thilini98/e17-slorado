@@ -316,6 +316,13 @@ int basecaller_main(int argc, char* argv[]) {
                 fprintf(stderr, "\n[%s]                 - call_chunks time: %.3f sec",__func__, call_chunksT);
                 fprintf(stderr, "\n[%s]                 - cuda_thread_fn time: %.3f sec",__func__, cuda_thread_fnT);
                 fprintf(stderr, "\n[%s]                 - SubCudaCallerT time: %.3f sec",__func__, SubCudaCallerT);
+                /////////////////////////////////////////////////////
+                fprintf(stderr, "\n\n[%s]                     - Forward in ConvolutionImpl time: %.3f sec",__func__, forward_l62);
+                fprintf(stderr, "\n[%s]                     - Forward in LinearCRFImpl time: %.3f sec",__func__, forward_l159);
+                fprintf(stderr, "\n[%s]                     - Forward in CudaLSTMStackImpl time: %.3f sec",__func__, forward_l469);
+                fprintf(stderr, "\n[%s]                     - Forward in LSTMStackImpl time: %.3f sec",__func__, forward_l536);
+                fprintf(stderr, "\n[%s]                     - Forward in ClampImpl time: %.3f sec",__func__, forward_l577);
+                fprintf(stderr, "\n[%s]                     - Forward in CRFModelImpl time: %.3f sec",__func__, forward_l642);
 
             }
         
