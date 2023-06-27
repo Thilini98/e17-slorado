@@ -40,6 +40,10 @@ double call_chunksT;
 double cuda_thread_fnT;
 double SubCudaCallerT;
 
+double forward_1;
+double forward_2;
+double forward_3;
+
 // Function to measure time difference in seconds
 double getTimeDifference() {
     return endTime - startTime;
