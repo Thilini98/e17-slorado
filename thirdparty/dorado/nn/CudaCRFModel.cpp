@@ -11,6 +11,10 @@
 #include "toml.h"
 #include <torch/torch.h>
 
+#include <cstdio>
+#include <cstring>
+
+
 using namespace std::chrono_literals;
 
 class CudaCaller {
@@ -21,6 +25,9 @@ public:
                const std::string &device) {
         isCUDA = true;
         startTime = realtime();
+
+        fprintf(stderr, "\n[ CudaCaller]");
+
         const auto model_config = load_crf_model_config(model_path);
         
         m_model_stride = static_cast<size_t>(model_config.stride);
@@ -41,6 +48,7 @@ public:
 
     ~CudaCaller() {
         startTime = realtime();
+        fprintf(stderr, "\n[ ~CudaCaller]");
         std::unique_lock<std::mutex> input_lock(m_input_lock);
         m_terminate = true;
         input_lock.unlock();
@@ -51,7 +59,8 @@ public:
     }
 
     struct NNTask {
-        // startTime = realtime();
+        startTime = realtime();
+        fprintf(stderr, "\n[ NNTask]");
         NNTask(torch::Tensor input_, int num_chunks_) : input(input_), num_chunks(num_chunks_) {}
         torch::Tensor input;
         std::mutex mut;
@@ -59,8 +68,8 @@ public:
         torch::Tensor out;
         bool done{false};
         int num_chunks;
-        // endTime = realtime();
-        // NNTaskT += getTimeDifference();
+        endTime = realtime();
+        NNTaskT += getTimeDifference();
     };
 
     std::vector<DecodedChunk> call_chunks(torch::Tensor &input,
@@ -68,6 +77,7 @@ public:
                                           int num_chunks,
                                           c10::cuda::CUDAStream stream) {
         startTime = realtime();
+        fprintf(stderr, "\n[ callchunks]");
         c10::cuda::CUDAStreamGuard stream_guard(stream);
 
         if (num_chunks == 0) {
@@ -93,6 +103,7 @@ public:
 
     void cuda_thread_fn() {
         startTime = realtime();
+        fprintf(stderr, "\n[ cuda_thread_fn]");
         torch::InferenceMode guard;
         c10::cuda::CUDAGuard device_guard(m_options.device());
         auto stream = c10::cuda::getCurrentCUDAStream(m_options.device().index());
@@ -124,7 +135,8 @@ public:
         cuda_thread_fnT += getTimeDifference();
     }
 
-    // startTime = realtime();
+    startTime = realtime();
+    fprintf(stderr, "\n[ SubCudaCaller]");
     std::string m_device;
     torch::TensorOptions m_options;
     std::unique_ptr<GPUDecoder> m_decoder;
@@ -137,8 +149,8 @@ public:
     std::condition_variable m_input_cv;
     std::unique_ptr<std::thread> m_cuda_thread;
     int m_num_input_features;
-    // endTime = realtime();
-    // SubCudaCallerT += getTimeDifference();
+    endTime = realtime();
+    SubCudaCallerT += getTimeDifference();
 };
 
 std::shared_ptr<CudaCaller> create_cuda_caller(const std::string &model_path,
