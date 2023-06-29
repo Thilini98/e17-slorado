@@ -317,10 +317,12 @@ int basecaller_main(int argc, char* argv[]) {
                 fprintf(stderr, "\n[%s]                 - cuda_thread_fn time: %.3f sec",__func__, cuda_thread_fnT);
                 //fprintf(stderr, "\n[%s]                 - SubCudaCallerT time: %.3f sec",__func__, SubCudaCallerT);
 
-                fprintf(stderr, "\n\n[%s]                    - Forward in 1 time: %.3f sec",__func__, forward_1);
-                fprintf(stderr, "\n[%s]                     - Forward in 2 time: %.3f sec",__func__, forward_2);
+                fprintf(stderr, "\n\n[%s]                    - forward_cublas time: %.3f sec",__func__, forward_1);
+                fprintf(stderr, "\n[%s]                     - forward_quantized time: %.3f sec",__func__, forward_2);
 
                 fprintf(stderr, "\n\n[%s]                         - for loop rnn time: %.3f sec",__func__, p1t);
+                
+                fprintf(stderr, "\n\n[%s]                         - matrix multiplication time: %.3f sec",__func__, forward_3);
                 //fprintf(stderr, "\n[%s]                         - rnn2 time: %.3f sec",__func__, p2t);
                 //fprintf(stderr, "\n[%s]                         - rnn3 time: %.3f sec",__func__, p3t);
                 //fprintf(stderr, "\n[%s]                         - rnn4 time: %.3f sec",__func__, p4t);
@@ -337,7 +339,6 @@ int basecaller_main(int argc, char* argv[]) {
                 fprintf(stderr, "\n[%s]                         - rnn4 time: %.3f sec",__func__, rnn4t);
                 fprintf(stderr, "\n[%s]                         - rnn5 time: %.3f sec",__func__, rnn5t);
 
-                fprintf(stderr, "\n\n[%s]                             - 'auto t1 = rnn1(x)' time: %.3f sec",__func__, rnn1tt1);
                 fprintf(stderr, "\n[%s]                             - 'auto h1 = std::get<1>(t1)' time: %.3f sec",__func__, rnn1th1);
                 fprintf(stderr, "\n[%s]                             - 'auto y1 = std::get<0>(t1)' time: %.3f sec",__func__, rnn1ty1);
                 fprintf(stderr, "\n[%s]                             - 'x = y1.flip(1)' time: %.3f sec",__func__, rnn1tflip);

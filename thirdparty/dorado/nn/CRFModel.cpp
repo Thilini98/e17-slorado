@@ -323,11 +323,14 @@ struct CudaLSTMStackImpl : Module {
                 auto timestep_out = rnn->reverse ? working_mem_left[chunk_size - ts - 1]
                                                  : working_mem_right[ts];
 
+                subStartTimev2 = realtime();
                 // Timestep matrix mulitplication
                 matmul_f16(timestep_in, weights, gate_buf);
                 host_lstm_step_f16(stream, batch_size, layer_size, bias.data_ptr(),
                                    gate_buf.data_ptr(), state_buf.data_ptr(),
                                    timestep_out.data_ptr());
+                subEndTimev2 = realtime();
+                forward_3 += getSubTimeDifferencev2();
             }
             subEndTimev2 = realtime();
             p1t += getSubTimeDifferencev2();
